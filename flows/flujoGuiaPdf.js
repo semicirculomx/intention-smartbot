@@ -22,6 +22,7 @@ const flujoGuiaPdf = addKeyword(EVENTS.ACTION)
           }
       };
       const abc = await provider.getInstance();    
+      await ctxFn.state.update({botOn: 'true', currentIntention: '', answers: [], retry:0})
      await abc.sendMessage(telefono, guiaNotion);
       return endFlow()
 
