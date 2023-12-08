@@ -9,7 +9,8 @@ Elige una de las siguientes opciones:
 📞 Llamada - Si deseas agendar o reagendar una llamada rápida
 👩‍💼 Agente - Si prefieres hablar con un asesor humano
 📋 Menu - Para volver a este menú en cualquier momento
--  Demo SMARTBOT - Si quieres probar un chat con inteligencia artificial
+📜 Guía - Si quieres el link de Notion para nuestra Guía 
+- Demo smartbot - Si quieres probar un chat con inteligencia artificial
 *Reiniciar* - para reiniciar el bot`, null, async (ctx, ctxFn) => {
         await ctxFn.state.update({answers: []})
         

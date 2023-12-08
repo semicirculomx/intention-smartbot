@@ -18,6 +18,7 @@ Intenciones:
 -necesidades: esta hablando de los servicios que necesita
 -reiniciar: mensaje para reiniciar el bot. bye, adios 
 -null: sale, okay, esta bien, ok, ok gracias
+-guia: quiere entrar a nuestr documento guia en notion
 .............................................
 
 

@@ -14,6 +14,7 @@ const flujoCierre = require("./flujoCierre");
 const flujoCancelar = require("./flujoCancelar");
 const flujoNull = require("./flujoNull");
 const flujoReiniciar = require("./flujoReiniciar");
+const flujoGuiaPdf = require("./flujoGuiaPdf");
 
 const flowDistribuidor = addKeyword(EVENTS.ACTION)
   .addAnswer('...', null, async (ctx, ctxFn) => {
@@ -52,6 +53,8 @@ const flowDistribuidor = addKeyword(EVENTS.ACTION)
           }
         case "demos":
           return ctxFn.gotoFlow(flujoDemo)
+        case "guia":
+          return ctxFn.gotoFlow(flujoGuiaPdf)
         case "agente":
           return ctxFn.gotoFlow(flowAgente)
         case "menu":
@@ -102,10 +105,15 @@ async function determinarIntencionPrincipal(intenciones, currentIntention) {
     if (todasEjecutadas) {
       return "agente"; // Lanzar 'agente' si todas las demás intenciones fueron ejecutadas
     }
+      
   }
 
   if (currentIntention.includes("menu")) {
     return "menu"; // Lanzar 'menu' directamente
+  }
+  
+  if (currentIntention.includes("guia")) {
+    return "guia"; // Lanzar 'menu' directamente
   }
   
   if (currentIntention.includes("reiniciar")) {

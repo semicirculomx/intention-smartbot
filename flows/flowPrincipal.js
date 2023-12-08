@@ -2,7 +2,6 @@ const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const delay = require("../utils");
 const flujoClasificar = require("./flujoClasificar");
 const flujoWpIA = require("./flujoWpIA");
-const flujoGuiaPdf = require("./flujoGuiaPdf");
 let inactivityTimer
  
 
@@ -32,9 +31,9 @@ const flowPrincipal = addKeyword(EVENTS.WELCOME)
     // Establece un nuevo temporizador de inactividad
     inactivityTimer = setTimeout(() => {
       // Realiza una acción de inactividad después del tiempo especificado (3 minutos)
-      return gotoFlow(flujoGuiaPdf);
+      return gotoFlow(flujoClasificar);
       // gotoFlow(handleInactivity);
-    }, 5 * 1000);
+    }, 20 * 1000);
   
    if (botOn === 'false') {
     return endFlow()
