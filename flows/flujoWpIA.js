@@ -16,8 +16,9 @@ const  flujoWpIA = addKeyword(EVENTS.ACTION)
             if(intencionRepetida.length === 1) {
                 userPrompt[0] = 'Hola! mucho gusto, busco asistencia'
             }
-            const message = await wpApiCall(userPrompt[0], 'default', `${telefono}`)
-            await ctxFn.flowDynamic([{body: `${message}`}])
+            const message = await wpApiCall(userPrompt[0], 'chatbot-m8k6dx', `${telefono}`)
+          //  console.log(message.data)
+            await ctxFn.flowDynamic([{body: `${message.data}`}])
 
             return ctxFn.endFlow();
         } else {
