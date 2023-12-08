@@ -1,0 +1,47 @@
+{
+    "name": "base-bailey-mongo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "prestart": "npx eslint . --no-ignore",
+        "pre-copy": "cd .. && npm run  copy.lib base-baileys-mongo",
+        "start": "node app.js"
+    },
+    "keywords": [],
+    "dependencies": {
+        "@bot-whatsapp/bot": "latest",
+        "@bot-whatsapp/cli": "latest",
+        "@bot-whatsapp/database": "latest",
+        "@bot-whatsapp/portal": "latest",
+        "@bot-whatsapp/provider": "latest",
+        "@whiskeysockets/baileys": "6.5.0",
+        "axios": "^1.6.1",
+        "bcryptjs": "^2.4.3",
+        "cache-manager": "5.2.4",
+        "cloudinary": "^1.35.0",
+        "compression": "^1.7.4",
+        "connect-mongo": "^3.2.0",
+        "cookie-parser": "~1.4.4",
+        "dotenv": "^16.3.1",
+        "express": "~4.16.1",
+        "jsonwebtoken": "^8.5.1",
+        "link-preview-js": "^3.0.5",
+        "mime-types": "2.1.35",
+        "mongodb": "^4.12.1",
+        "mongoose": "^5.13.2",
+        "morgan": "~1.9.1",
+        "multer": "^1.4.5-lts.1",
+        "nanoid": "^5.0.3",
+        "nodemailer": "^6.9.7",
+        "passport": "^0.4.1",
+        "passport-local": "^1.0.0",
+        "wa-sticker-formatter": "4.4.4"
+    },
+    "devDependencies": {
+        "eslint": "^8.52.0",
+        "eslint-plugin-bot-whatsapp": "latest"
+    },
+    "author": "",
+    "license": "ISC"
+}

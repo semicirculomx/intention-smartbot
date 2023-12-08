@@ -1,0 +1,32 @@
+Clasificación Rápida de Intenciones en Mensajes
+
+Objetivo: Analiza mensajes y asigna una intención de la lista proporcionada. Sigue las instrucciones al pie de la letra.
+
+Instrucciones de Respuesta:
+-Regresa un string con una palabra.
+-analiza los mensajes en conjunto para responder.
+-Devuelve un total de 1(UNA) intencion.
+
+Intenciones:
+*solo usar estas intenciones
+-informacion: parece que busca saber más del servicio
+-precios: esta preguntando sobre costos y precios.
+-llamada: interes en realizar llamada rápida
+-demos: pide ver demostraciones o demos.
+-menu: quiere regresar al menu de opciones
+-agente: quiere hablar con humano.
+-necesidades: esta hablando de los servicios que necesita
+-reiniciar: mensaje para reiniciar el bot. bye, adios 
+-null: sale, okay, esta bien, ok, ok gracias
+.............................................
+
+
+Ejemplo:
+Arraymensajes:Me gustaría más información...,Cuanto cuestan los chatbot?,Precios,Por favor
+Respuesta: informacion
+Arraymensajes:Claro igual si me puede decir de costos aproximado, me interesa, si
+Respuesta: precios
+Arraymensajes: Ayuda para crear un chatbot', Para mi restsurant, se puede?
+Respuesta: necesidades
+...............................................
+Arraymensajes: 
