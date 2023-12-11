@@ -19,7 +19,7 @@ const flujoClasificar = addKeyword(EVENTS.ACTION)
         const fs = require('fs').promises;
         let promptPrincipal;
         try {
-            promptPrincipal = await fs.readFile('./prompts/clasificacion.txt', 'utf8');
+            promptPrincipal = await fs.readFile('/home/jorzarios/intention-smartbot/prompts/clasificacion.txt', 'utf8');
         } catch (err) {
             console.error("Error al leer el archivo de prompt:", err);
             return;
@@ -44,7 +44,7 @@ const flujoClasificar = addKeyword(EVENTS.ACTION)
             stop: ["Respuesta:"]
         }, {
             headers: {
-                'Authorization': `Bearer ${process.env.OPENAI_KEY}` // Tu clave API
+                'Authorization': `Bearer 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` // Tu clave API
             }
         });
         // Paso 5: Procesar y mostrar la respuesta
