@@ -2,7 +2,7 @@ const { addKeyword, EVENTS } = require('@bot-whatsapp/bot')
 
 
 const flujoGuiaPdf = addKeyword(EVENTS.ACTION)
-.addAnswer('Te enviaremos nuestra guia para dueños de negocios en *Notion*', null, async (ctx ,{ provider, endFlow }) => {
+.addAnswer('Te enviaremos nuestra guia para dueños de negocios en *Notion*', null, async (ctx ,{ provider, endFlow, state }) => {
      const url = `https://semicirculo.notion.site/Pasos-para-un-servicio-al-cliente-excepcional-Una-gu-a-para-due-os-de-negocios-603109cd198c47dcabd261d48a922683`
      const telefono = ctx.key.remoteJid;  
     
@@ -22,7 +22,7 @@ const flujoGuiaPdf = addKeyword(EVENTS.ACTION)
           }
       };
       const abc = await provider.getInstance();    
-      await ctxFn.state.update({botOn: 'true', currentIntention: '', answers: [], retry:0})
+      await state.update({botOn: 'true', currentIntention: '', answers: [], retry:0})
      await abc.sendMessage(telefono, guiaNotion);
       return endFlow()
 

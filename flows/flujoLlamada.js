@@ -90,10 +90,9 @@ Para *confirmar*:`
 const horarios = addKeyword(EVENTS.ACTION)
 .addAnswer(`Selecciona un horario disponible para la llamada 📅 :
     
-*1.*🕘 Mañana - 10:00 AM
-*2.*🕐 Mediodía - 12:00 PM
-*3.*🕕 Tarde - 3:00 PM
-*4.*🕕 Noche - 6:00 PM`,
+*1.*🕘 Mañana - 9:00-12:00 AM
+*2.*🕐 Mediodía - 12:00-3:00 PM
+*3.*🕕 Tarde - 3:00-6:00 PM`,
  {capture: true}, async (ctx, ctxFn) => {
   const seleccion = ctx.body
   const name = ctxFn.state.getMyState()?.name
@@ -114,7 +113,7 @@ const flujoLlamada = addKeyword(EVENTS.ACTION)
          return ctxFn.gotoFlow(formularioNombre)
         } else {
           await delay(1000)
-          return ctxFn.gotoFlow(formularioEmail)
+          return ctxFn.gotoFlow(horarios)
         }
     },  [formularioNombre, formularioEmail, horarios, confirmacion, agendar])
 

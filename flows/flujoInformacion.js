@@ -11,7 +11,6 @@ const flujoInformacion = addKeyword(EVENTS.ACTION)
                 intenciones.push('informacion')
                 await ctxFn.state.update({intenciones})
         }
-        await ctxFn.state.update({answers: []})
         return ctxFn.endFlow()
 
     })
