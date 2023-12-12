@@ -44,6 +44,7 @@ const flujoEnviarCorreo = require('./flows/flujoEnviarCorreo');
 const flujoReiniciar = require('./flows/flujoReiniciar');
 const flujoWpIA = require('./flows/flujoWpIA');
 const flujoGuiaPdf = require('./flows/flujoGuiaPdf');
+const flowStarter = require('./flows/flujoStarter');
 
 /**
  * Funcion principal
@@ -55,6 +56,7 @@ const main = async () => {
     })
 
   const adapterFlow = createFlow([
+    flowStarter,
     flowPrincipal,
     flowAgente,
     flowDistribuidor,

@@ -17,7 +17,7 @@ const  flujoWpIA = addKeyword(EVENTS.ACTION)
                 userPrompt[0] = 'Hola! mucho gusto, busco asistencia, responde rápido y conciso'
             }
             const message = await wpApiCall(userPrompt[0], 'chatbot-m8k6dx', `${telefono}`)
-          //  console.log(message.data)
+            console.log(userPrompt)
             await ctxFn.flowDynamic([{body: `${message.data}`}])
 
             return ctxFn.endFlow();
