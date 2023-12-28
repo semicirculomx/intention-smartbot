@@ -5,11 +5,31 @@ const flujoNull = require("./flujoNull");
 
 const calendarLink = "https://calendar.app.google/pXvr5QZeaeEFjB1x9";
 
+var calendarBtn = {
+  text: 'Agendar llamada rápida 📞',
+  contextInfo: {
+      externalAdReply: {
+      title: 'Da click para agendar una llamada de 15 min por Meets',
+      body: 'Semicirculo digital',
+      mediaType: 'IMAGE', //VIDEO - IMAGE - NONE
+      showAdAttribution: false, //Mensaje a partir de un anuncio
+      renderLargerThumbnail: true, 
+      mediaUrl: 'https://semicirculo.com/wp-content/uploads/2023/12/calendar-img.png',
+      thumbnailUrl: 'https://semicirculo.com/wp-content/uploads/2023/12/calendar-img.png', //url imagen
+      sourceUrl: calendarLink
+      }
+  }
+};
+
 const confirmacion = addKeyword(EVENTS.ACTION)
-.addAnswer('¿Los datos son correctos? (SI/NO)', {capture: true}, async (ctx, { state, flowDynamic, fallBack, gotoFlow }) => {
+.addAnswer('¿Los datos son correctos? (SI/NO)', {capture: true}, async (ctx, { state, flowDynamic, fallBack, gotoFlow, provider }) => {
     const respuesta = ctx.body.toLowerCase().trim();
+    const telefono = ctx.key.remoteJid;
+    const refProvider = await provider.getInstance();    
+
     if (respuesta === "Si" || respuesta === "SI" || respuesta === "si" || respuesta === "Sí") {
-      await flowDynamic([{body: `Perfecto, puedes agendar la llamada usando el siguiente enlace: ${calendarLink}`}, {body: `Una vez agendada, recibirás una confirmación por correo electrónico.`}]);
+      await flowDynamic([{body: `Listo, puedes agendar la llamada usando el siguiente enlace:`}]);
+      await refProvider.sendMessage(telefono, calendarBtn);
       return gotoFlow(flujoEnviarCorreo)
     } else if (respuesta === "No" || respuesta === "NO" || respuesta === "no") {
       await state.update({ name: null, email: null });
