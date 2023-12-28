@@ -10,26 +10,17 @@ const flowStarter = addKeyword('-CHATBOT-')
       
         await refProvider.presenceSubscribe(jid);
         await refProvider.sendPresenceUpdate("composing", jid);
-        await delay(3000);      
+        await delay(3500);      
 
 })
 .addAnswer(
-  '¡Hola! 👋 Soy Jorge de Semicirculo, gracias por contactarnos!')
+  '¡Hola! 👋 Soy un Bot Asistente de Semicirculo, gracias por contactarnos!')
 .addAnswer([
-  '💻✨ Somos una *agencia de desarrollo de software* y creamos soluciones digitales para *Ecommerce*, *Startups* o *Negocios online*',
-`
-Hacemos:
-🤖 *Chatbots super inteligentes*
-🛍️ *Tiendas en línea*
-🚀 *Aplicaciones web y más*
-` ])
-.addAnswer([
-  '😃 Cuéntame en qué puedo ayudarte?',
+  'Cuéntame en qué puedo ayudarte? 😃',
 ],null, async (ctx, { provider, endFlow }) => {
         const jid = ctx.key.remoteJid;
-        const refProvider = await provider.getInstance();
+       const refProvider = await provider.getInstance();
         await refProvider.sendPresenceUpdate("paused", jid);
-
         return endFlow()
 
  })

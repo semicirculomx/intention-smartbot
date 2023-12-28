@@ -20,8 +20,8 @@ const flowPrincipal = addKeyword(EVENTS.WELCOME)
       return endFlow();
     }
 
-    const combinedArray = [...ans, text];
-    if (combinedArray.length > 2) {
+    const combinedArray = [...ans, {text: text, timestamp: ctx.messageTimestamp}];
+    if (combinedArray.length > 3) {
       combinedArray.shift(); 
     }
     console.log(combinedArray)

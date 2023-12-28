@@ -1,15 +1,15 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 
-
 const flujoNecesidades = addKeyword(EVENTS.ACTION)
-    .addAnswer(['Manejamos varias formas de darte solución a ese tipo de *servicios*'])
-    .addAnswer(['🌟 pero dependerá de tus objetivos y necesidades específicas'])
-    .addAnswer(['Te puedo dar los *precios* base que tenemos 💰'])
-    .addAnswer(['¿Te interesaría o prefieres organizar una *llamada*? 📞'], null, async (ctx, ctxFn) => {
+    .addAnswer([`*🚀 Explora nuestros servicios:*
+*Gestión de Pedidos:* Automatización desde recepción hasta seguimiento 📦
+*Atención al Cliente:* Chatbot para soporte eficiente 💬
+*Marketing y Promociones:* Potencia tus campañas 🎯`])
+    .addAnswer(['🤔 Si tienes otra consulta o quieres ver más opciones, escribe *Menú* para regresar al menú principal. 🙂'], null, async (ctx, ctxFn) => {
       const intenciones = await ctxFn.state.getMyState()?.intenciones || [];
-      const intencionRepetida = await intenciones.find((intencion) => (intencion === 'necesidades'));
+      const intencionRepetida = await intenciones.find((intencion) => (intencion === 'servicios'));
       if(!intencionRepetida) {
-              intenciones.push('necesidades')
+              intenciones.push('servicios')
               await ctxFn.state.update({intenciones})
       }
       await ctxFn.state.update({answers: []})
