@@ -9,7 +9,7 @@ const flujoEnviarCorreo = addKeyword(EVENTS.ACTION)
 
     if(correo){
       await mailer.enviarSaludo(correo)
-      await flowDynamic([{body: `Gracias por ponerte en contacto 🙂`}, {body: `Revisa tu correo 📥, estamos a tu disposición para cualquier duda! `}])
+      await flowDynamic([{body: `Gracias por ponerte en contacto 🙂, Revisa tu correo 📥, estamos a tu disposición para cualquier duda!`}])
       console.log('correo enviado')
     }
     // Verificar si los datos son correctos y actuar en consecuencia

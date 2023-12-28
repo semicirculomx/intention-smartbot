@@ -13,7 +13,7 @@ var calendarBtn = {
       body: 'Semicirculo digital',
       mediaType: 'IMAGE', //VIDEO - IMAGE - NONE
       showAdAttribution: false, //Mensaje a partir de un anuncio
-      renderLargerThumbnail: true, 
+      renderLargerThumbnail: false, 
       mediaUrl: 'https://semicirculo.com/wp-content/uploads/2023/12/calendar-img.png',
       thumbnailUrl: 'https://semicirculo.com/wp-content/uploads/2023/12/calendar-img.png', //url imagen
       sourceUrl: calendarLink
@@ -22,7 +22,7 @@ var calendarBtn = {
 };
 
 const confirmacion = addKeyword(EVENTS.ACTION)
-.addAnswer('¿Los datos son correctos? (SI/NO)', {capture: true}, async (ctx, { state, flowDynamic, fallBack, gotoFlow, provider }) => {
+.addAnswer('¿Son correctos? Para confirmar responde con *SI*, para modificarlos responde con *NO*', {capture: true}, async (ctx, { state, flowDynamic, fallBack, gotoFlow, provider }) => {
     const respuesta = ctx.body.toLowerCase().trim();
     const telefono = ctx.key.remoteJid;
     const refProvider = await provider.getInstance();    
@@ -47,7 +47,7 @@ const formularioNombre = addKeyword(EVENTS.ACTION)
   .addAnswer('Por favor, ¿puedes proporcionarme tu nombre?', {capture: true}, async (ctx, { state, flowDynamic, gotoFlow }) => {
     let nombre = ctx.body;
     await state.update({ name: nombre });
-    await flowDynamic([{body: `Gracias, ${nombre}. Ahora, ¿cuál es tu correo electrónico?`}]);
+    await flowDynamic([{body: `Gracias, ${nombre}`}]);
     return gotoFlow(formularioEmail);
   });
 
@@ -57,12 +57,11 @@ const formularioEmail = addKeyword(EVENTS.ACTION)
     await state.update({ email: correo });
 
     let datos = await state.getMyState();
-    await flowDynamic([{body: `Gracias! Por favor confirma tus datos:
+    await flowDynamic([{body: `Gracias! Estos son los datos que diste:
 
 *Nombre*: ${datos.name}
 *Correo*: ${datos.email}
-
-Para *confirmar* responde con 'SI', para modificarlos responde con 'NO'`}]);
+`}]);
     return gotoFlow(confirmacion);
   });
 
