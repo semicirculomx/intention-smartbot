@@ -18,8 +18,13 @@ const flujoGuiaPdf = require("./flujoGuiaPdf");
 
 
 const flowDistribuidor = addKeyword(EVENTS.ACTION)
-  .addAnswer('...', null, async (ctx, ctxFn) => {
-    await delay(2000);
+  .addAction(async (ctx, ctxFn) => {
+       const jid = ctx.key.remoteJid;
+        const refProvider = await ctxFn.provider.getInstance();
+      
+        await refProvider.presenceSubscribe(jid);
+        await refProvider.sendPresenceUpdate("composing", jid);
+        await delay(3500);      
 
     try {
       const intenciones = await ctxFn.state.getMyState()?.intenciones || [];
@@ -29,19 +34,20 @@ const flowDistribuidor = addKeyword(EVENTS.ACTION)
 
       const intencionPrincipal = await determinarIntencionPrincipal(intenciones, currentIntention);
       console.log("intencionPrincipal:", intencionPrincipal);
+      await refProvider.sendPresenceUpdate("paused", jid);
       switch (intencionPrincipal) {
         case "servicios":
-          return intenciones.includes("servicios") ? ctxFn.gotoFlow(flujoMenu) : ctxFn.gotoFlow(flujoNecesidades);
+          return intenciones.includes("servicios") ? ctxFn.gotoFlow(flujoNecesidades) : ctxFn.gotoFlow(flujoNecesidades);
         case "informacion":
-          return intenciones.includes("informacion") ? ctxFn.gotoFlow(flujoMenu) : ctxFn.gotoFlow(flujoInformacion);
+          return intenciones.includes("informacion") ? ctxFn.gotoFlow(flujoInformacion) : ctxFn.gotoFlow(flujoInformacion);
         case "precios":
-          return intenciones.includes("precios") ? ctxFn.gotoFlow(flujoMenu) : ctxFn.gotoFlow(flujoPrecios);
+          return intenciones.includes("precios") ? ctxFn.gotoFlow(flujoPrecios) : ctxFn.gotoFlow(flujoPrecios);
         case "llamada":
           return intenciones.includes("llamada") ? ctxFn.gotoFlow(flujoMenu) : ctxFn.gotoFlow(flujoLlamada);
         case "demos":
-          return intenciones.includes("demos") ? ctxFn.gotoFlow(flujoMenu) : ctxFn.gotoFlow(flujoDemo);
+          return intenciones.includes("demos") ? ctxFn.gotoFlow(flujoDemo) : ctxFn.gotoFlow(flujoDemo);
         case "guia":
-          return intenciones.includes("guia") ? ctxFn.gotoFlow(flujoMenu) : ctxFn.gotoFlow(flujoGuiaPdf);
+          return intenciones.includes("guia") ? ctxFn.gotoFlow(flujoGuiaPdf) : ctxFn.gotoFlow(flujoGuiaPdf);
         case "agente":
           return intenciones.includes("agente") ? ctxFn.gotoFlow(flujoMenu) : ctxFn.gotoFlow(flowAgente);
         case "menu":
