@@ -13,8 +13,8 @@ const flowStarter = addKeyword(EVENTS.ACTION)
         await delay(3500);      
 
 })
-.addAnswer(`¡Hola! 👋 Soy un Bot Asistente de Semicirculo, gracias por contactarnos! Puedes dejar tus dudas por mensaje. 
-O si lo que quieres es hablar con un asesor, escribe *agente*`)
+.addAnswer(`¡Hola! 👋 Soy un Bot Asistente de Semicirculo, gracias por contactarnos!
+Puedes dejar tus dudas por mensaje. O si prefieres hablar con un asesor, escribe *agente*`)
 .addAnswer([
   'Dime, en qué te puedo ayudar? 😃',
 ],null, async (ctx, { provider, endFlow }) => {

@@ -56,8 +56,8 @@ const main = async () => {
     })
 
   const adapterFlow = createFlow([
-    flowStarter,
     flowPrincipal,
+    flowStarter,
     flowAgente,
     flowDistribuidor,
     flujoInformacion,
