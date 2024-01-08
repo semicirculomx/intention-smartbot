@@ -5,18 +5,13 @@ const flujoCancelar = require("./flujoCancelar");
  * Esto se ejeuta cunado la persona escruibe "AGENTE"
  */
 const flowAgente = addKeyword(EVENTS.ACTION)
-  .addAnswer(
-   "Estamos desviando tu conversacion a nuestro agente"
-  )
-  .addAction(async (ctx, {provider}) => {
+.addAction(async (ctx, {provider}) => {
     const nanoid = await import('nanoid')
     const ID_GROUP = nanoid.nanoid(5)
     const refProvider = await provider.getInstance()
-    await refProvider.groupCreate(`Semicirculo_(${ID_GROUP})`,[
-        `${ctx.from}@s.whatsapp.net`,
-    ])
+    await refProvider.sendMessage('2295278419', {text: `Tienes un mensaje pendiente de este número ${ctx.from}`})
   })
-  .addAnswer('Te hemos agregado a un grupo con un asesor! Gracias', null, async (ctx, ctxFn) => {
+  .addAnswer('Ya estas en lista para que te atienda un asesor enseguida! Gracias', null, async (ctx, ctxFn) => {
     return ctxFn.gotoFlow(flujoCancelar)
  })
 

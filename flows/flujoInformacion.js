@@ -4,13 +4,13 @@ const flujoMenu = require("./flujoMenu");
 
 
 const flujoInformacion = addKeyword(EVENTS.ACTION)
-    .addAnswer(`¿Quieres saber más sobre nosotros? 🌐 Elige una opción:
+    .addAnswer(`Te cuento más de nosotros, ¿que te gustaría saber...?
 
-*Quiénes Somos 🤝: * Escribe *1*
-*Qué Hacemos 🚀:* Escribe *2*
-*Nuestros Valores ✨:* Escribe *3*
+*Quiénes Somos 🤝* - Escribe *1*
+*Qué Hacemos 🚀* - Escribe *2*
+*Nuestros Valores ✨* - Escribe *3*
 
-Escribe *cancelar* para regresar al menú 💬`, { capture: true }, async (ctx, ctxFn) => {
+O escribe *cancelar* para ver el *menú principal*`, { capture: true }, async (ctx, ctxFn) => {
     const opts = ['1', '2', '3', 'cancelar', 'Cancelar', 'CANCELAR']
 
     let response = ctx.body.trim();
@@ -23,17 +23,22 @@ Escribe *cancelar* para regresar al menú 💬`, { capture: true }, async (ctx, 
     switch(response) {
         case '1':
             // Aquí añades la lógica para la opción "Quiénes Somos"
-            await ctxFn.flowDynamic([{body:`🌟 Somos especialistas en soluciones de chatbot para eCommerce, enfocados en mejorar la comunicación y automatización. Si deseas saber cómo podemos ayudar a tu negocio, escribe *servicios* o *Menú* para volver al menú principal. 🔄`}])
+            await ctxFn.flowDynamic([{body:`🌟 Somos especialistas en soluciones de chatbot para eCommerce, enfocados en mejorar la comunicación y automatización.
+
+Si quieres conocer los servicios que ofrecemos, escribe *servicios* o *Menú* para volver al menú principal. 🔄`}])
            await ctxFn.state.update({answers: []})
             break;
         case '2':
             // Aquí añades la lógica para la opción "Qué Hacemos"
-            await ctxFn.flowDynamic([{body:`🚀 Ayudamos a negocios como el tuyo a optimizar procesos y mejorar la experiencia del cliente a través de la tecnología avanzada. ¿Quieres una demostración o más información? Responde *Demo* o *Info*. Para volver, escribe *Menú*. 🔄`}])
+            await ctxFn.flowDynamic([{body:`🚀 Ayudamos a negocios como el tuyo a optimizar procesos y mejorar la experiencia del cliente a través de la tecnología avanzada.
+
+¿Quieres una demostración o en que más te puedo ayudar? Responde *Demo* para ver una Demo. Para ver el menu principal, escribe *menu*. 🔄`}])
 	    await ctxFn.state.update({answers: []})            
 	    break;
         case '3':
             // Aquí añades la lógica para la opción "Nuestros Valores"
-            await ctxFn.flowDynamic([{body:`🌱 Valoramos la innovación, calidad en el servicio al cliente y adaptabilidad a las necesidades de cada empresa. Si tienes preguntas específicas, responde con tu duda, o escribe *Agente* para hablar con un asesor. 🔄`}])
+            await ctxFn.flowDynamic([{body:`🌱 Valoramos la innovación, calidad en el servicio al cliente y adaptabilidad a las necesidades de cada empresa.
+Si tienes preguntas específicas, responde con tu duda, o escribe *Agente* para hablar con un asesor. 🔄`}])
             
 	    await ctxFn.state.update({answers: []})
 	    break;
