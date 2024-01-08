@@ -46,7 +46,7 @@ Si tienes preguntas específicas, responde con tu duda, o escribe *Agente* para 
         case 'Cancelar':
         case 'CANCELAR':
             // Aquí manejas la opción de cancelar para volver al menú
-            return gotoFlow(flujoMenu);
+            return ctxFn.gotoFlow(flujoMenu);
         default:
             // En caso de una respuesta no reconocida, puedes enviar un mensaje de error o de ayuda
 		ctxFn.fallBack();
