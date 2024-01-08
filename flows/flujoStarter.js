@@ -1,7 +1,7 @@
 const {addKeyword, EVENTS} = require("@bot-whatsapp/bot");
 const delay = require("../utils");
 
-const flowStarter = addKeyword('-CHATBOT-')
+const flowStarter = addKeyword(EVENTS.ACTION)
 .addAction(async (ctx, {state, provider}) => {
         console.log('starter')
         await state.update({ botOn: 'false' })
@@ -13,10 +13,10 @@ const flowStarter = addKeyword('-CHATBOT-')
         await delay(3500);      
 
 })
-.addAnswer(
-  '¡Hola! 👋 Soy un Bot Asistente de Semicirculo, gracias por contactarnos!')
+.addAnswer(`¡Hola! 👋 Soy un Bot Asistente de Semicirculo, gracias por contactarnos! Puedes dejar tus dudas por mensaje. 
+O si lo que quieres es hablar con un asesor, escribe *agente*`)
 .addAnswer([
-  'Cuéntame en qué puedo ayudarte? 😃',
+  'Dime, en qué te puedo ayudar? 😃',
 ],null, async (ctx, { provider, endFlow }) => {
         const jid = ctx.key.remoteJid;
        const refProvider = await provider.getInstance();

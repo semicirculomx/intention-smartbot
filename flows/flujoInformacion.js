@@ -6,9 +6,9 @@ const flujoMenu = require("./flujoMenu");
 const flujoInformacion = addKeyword(EVENTS.ACTION)
     .addAnswer(`¿Quieres saber más sobre nosotros? 🌐 Elige una opción:
 
-*Quiénes Somos 🤝: * Responde *1*
-*Qué Hacemos 🚀:* Responde *2*
-*Nuestros Valores ✨:* Responde *3*
+*Quiénes Somos 🤝: * Escribe *1*
+*Qué Hacemos 🚀:* Escribe *2*
+*Nuestros Valores ✨:* Escribe *3*
 
 Escribe *cancelar* para regresar al menú 💬`, { capture: true }, async (ctx, ctxFn) => {
     const opts = ['1', '2', '3', 'cancelar', 'Cancelar', 'CANCELAR']
