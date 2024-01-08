@@ -32,7 +32,7 @@ const flujoClasificar = addKeyword(EVENTS.ACTION)
 
                 // Paso 3: Preparar el prompt completo
                 const promptCompleto = mensajes.reduce((acc, mensaje, index) => {
-                    return `${acc}${mensaje},`;
+                    return `${acc}${mensaje.text},`;
                 }, promptPrincipal);
 
                 // Paso 4: Llamada a la API de OpenAI
