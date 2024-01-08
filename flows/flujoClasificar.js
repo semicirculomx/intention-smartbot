@@ -7,6 +7,8 @@ const flujoClasificar = addKeyword(EVENTS.ACTION)
 .addAction(async (ctx, ctxFn) => {
     try {
         let apiResponse;
+        const number = ctx.key.remoteJid
+    const refProvider = await provider.getInstance()
         const currentState = await ctxFn.state.getMyState()
         // Paso 1: Obtener el array de mensajes del estado
         const mensajes = currentState?.answers || [];
@@ -16,7 +18,8 @@ const flujoClasificar = addKeyword(EVENTS.ACTION)
             return;
         }
 
-        if(currentState) {
+        let onWhatsapp = await refProvider.onWhatsApp(number)
+        if(onWhatsapp) {
                     // Paso 2: Recuperar el prompt principal desde un archivo
                 const fs = require('fs').promises;
                 let promptPrincipal;
