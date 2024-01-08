@@ -10,7 +10,7 @@ const flujoInformacion = addKeyword(EVENTS.ACTION)
 *Qué Hacemos 🚀* - Escribe *2*
 *Nuestros Valores ✨* - Escribe *3*
 
-O escribe *cancelar* para ver el *menú principal*`, { capture: true }, async (ctx, ctxFn) => {
+O escribe *cancelar* para regresar al *menú principal*`, { capture: true }, async (ctx, ctxFn) => {
     const opts = ['1', '2', '3', 'cancelar', 'Cancelar', 'CANCELAR']
 
     let response = ctx.body.trim();

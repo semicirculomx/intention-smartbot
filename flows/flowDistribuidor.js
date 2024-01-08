@@ -15,6 +15,7 @@ const flujoCancelar = require("./flujoCancelar");
 const flujoNull = require("./flujoNull");
 const flujoReiniciar = require("./flujoReiniciar");
 const flujoGuiaPdf = require("./flujoGuiaPdf");
+const flowStarter = require("./flujoStarter");
 
 
 const flowDistribuidor = addKeyword(EVENTS.ACTION)
@@ -36,6 +37,8 @@ const flowDistribuidor = addKeyword(EVENTS.ACTION)
       console.log("intencionPrincipal:", intencionPrincipal);
       await refProvider.sendPresenceUpdate("paused", jid);
       switch (intencionPrincipal) {
+        case "bienvenida": 
+          return intenciones.includes("bienvenida") ? ctxFn.gotoFlow(flujoNull) : ctxFn.gotoFlow(flowStarter);
         case "servicios":
           return intenciones.includes("servicios") ? ctxFn.gotoFlow(flujoNecesidades) : ctxFn.gotoFlow(flujoNecesidades);
         case "informacion":
@@ -71,7 +74,7 @@ module.exports = flowDistribuidor;
 
 async function determinarIntencionPrincipal(intenciones, currentIntention) {
   // Simplificación del proceso de determinación de intenciones
-  const allIntents = ["servicios", "informacion", "precios", "llamada", "demos", "guia", "agente", "menu", "reiniciar"];
+  const allIntents = ["servicios", "informacion", "precios", "llamada", "demos", "guia", "agente", "menu", "reiniciar", "bienvenida","spam",];
 
   for (let intent of allIntents) {
     if (currentIntention.includes(intent)) {

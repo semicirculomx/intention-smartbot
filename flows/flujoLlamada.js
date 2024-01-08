@@ -22,7 +22,9 @@ var calendarBtn = {
 };
 
 const confirmacion = addKeyword(EVENTS.ACTION)
-.addAnswer('¿Son correctos? Para confirmar responde con *SI*, para modificarlos responde con *NO*', {capture: true}, async (ctx, { state, flowDynamic, fallBack, gotoFlow, provider }) => {
+.addAnswer(`¿Son correctos? Para confirmar responde con *SI*, para modificarlos responde con *NO*
+
+o Escribe *Cancelar* si deseas *no continuar*`, {capture: true}, async (ctx, { state, flowDynamic, fallBack, gotoFlow, provider }) => {
     const respuesta = ctx.body.toLowerCase().trim();
     const telefono = ctx.key.remoteJid;
     const refProvider = await provider.getInstance();    
@@ -36,9 +38,10 @@ const confirmacion = addKeyword(EVENTS.ACTION)
         await flowDynamic([{body: `Entendido, comencemos de nuevo. Por favor, proporciona tu nombre.`}]);
         return gotoFlow(formularioNombre);
     } else if (ctx.body === 'Cancelar') {
+      await flowDynamic([{body: `No te preocupes. ¿Tienes alguna otra duda?`}]);
         return gotoFlow(flujoNull);
     } else {
-        await flowDynamic([{body: `Por favor, responde con 'sí' o 'no'.`}]);
+        await flowDynamic([{body: `Por favor, responde con 'Sí' , 'No' o *Cancelar*`}]);
         return fallBack();
     }
 });

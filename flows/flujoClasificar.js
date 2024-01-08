@@ -6,6 +6,7 @@ require("dotenv").config()
 const flujoClasificar = addKeyword(EVENTS.ACTION)
 .addAction(async (ctx, ctxFn) => {
     try {
+        let apiResponse;
         const currentState = await ctxFn.state.getMyState()
         // Paso 1: Obtener el array de mensajes del estado
         const mensajes = currentState?.answers || [];
@@ -15,40 +16,45 @@ const flujoClasificar = addKeyword(EVENTS.ACTION)
             return;
         }
 
-        // Paso 2: Recuperar el prompt principal desde un archivo
-        const fs = require('fs').promises;
-        let promptPrincipal;
-        try {
-            promptPrincipal = await fs.readFile('/home/jorzarios/intention-smartbot/prompts/clasificacion.txt', 'utf8');
-        } catch (err) {
-            console.error("Error al leer el archivo de prompt:", err);
-            return;
+        if(currentState) {
+                    // Paso 2: Recuperar el prompt principal desde un archivo
+                const fs = require('fs').promises;
+                let promptPrincipal;
+                try {
+                    promptPrincipal = await fs.readFile('/home/jorzarios/intention-smartbot/prompts/clasificacion.txt', 'utf8');
+                } catch (err) {
+                    console.error("Error al leer el archivo de prompt:", err);
+                    return;
+                }
+
+                // Paso 3: Preparar el prompt completo
+                const promptCompleto = mensajes.reduce((acc, mensaje, index) => {
+                    return `${acc}${mensaje},`;
+                }, promptPrincipal);
+
+                // Paso 4: Llamada a la API de OpenAI
+                const respuesta = await axios.post('https://api.openai.com/v1/completions', {
+                    
+                    model: 'gpt-3.5-turbo-instruct',
+                    prompt: `${promptCompleto}
+                    Respuesta: `,
+                    temperature: 0.3,
+                    max_tokens: 25,
+                    top_p: 1,
+                    frequency_penalty: 0,
+                    presence_penalty: 0,
+                    stop: ["Respuesta:"]
+                }, {
+                    headers: {
+                        'Authorization': `Bearer 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` // Tu clave API
+                    }
+                });
+                // Paso 5: Procesar y mostrar la respuesta
+                apiResponse = respuesta.data.choices[0].text.trim();
+        } else {
+            apiResponse = 'bienvenida'
         }
-
-        // Paso 3: Preparar el prompt completo
-        const promptCompleto = mensajes.reduce((acc, mensaje, index) => {
-            return `${acc}${mensaje},`;
-        }, promptPrincipal);
-
-        // Paso 4: Llamada a la API de OpenAI
-        const respuesta = await axios.post('https://api.openai.com/v1/completions', {
-              
-            model: 'gpt-3.5-turbo-instruct',
-            prompt: `${promptCompleto}
-            Respuesta: `,
-            temperature: 0.3,
-            max_tokens: 25,
-            top_p: 1,
-            frequency_penalty: 0,
-            presence_penalty: 0,
-            stop: ["Respuesta:"]
-        }, {
-            headers: {
-                'Authorization': `Bearer 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` // Tu clave API
-            }
-        });
-        // Paso 5: Procesar y mostrar la respuesta
-        const apiResponse = respuesta.data.choices[0].text.trim();
+        
         await ctxFn.state.update({currentIntention: apiResponse})
         console.log("Respuesta de la API:", apiResponse);
         return ctxFn.gotoFlow(flowDistribuidor)

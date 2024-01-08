@@ -3,22 +3,27 @@ const delay = require("../utils");
 const flujoClasificar = require("./flujoClasificar");
 const flujoWpIA = require("./flujoWpIA");
 const flowStarter = require("./flujoStarter");
+const flujoReiniciar = require("./flujoReiniciar");
 let inactivityTimer
  
 
 const flowPrincipal = addKeyword(EVENTS.WELCOME)
 .addAction(async (ctx, { provider, endFlow, state, gotoFlow }) => {
   console.log('flow_principal')
-
+    const number = ctx.key.remoteJid
+    const refProvider = await provider.getInstance()
     if (inactivityTimer) {
       clearTimeout(inactivityTimer);
     }
     const text = ctx.body;
     const currentState = await state.getMyState();
     let ans = currentState?.answers ?? []
-
-    if(!currentState) {
-      return gotoFlow(flowStarter);
+    let onWhatsapp = await refProvider.onWhatsApp(number)
+    console.log(onWhatsapp)
+    if(currentState && (currentState?.currentIntention === 'agente' && ctx.body !== 'Reiniciar')) {
+      return endFlow();
+    } else if(ctx.body === 'Reiniciar') {
+      return gotoFlow(flujoReiniciar)
     }
 
     const combinedArray = [...ans, {text: text, timestamp: ctx.messageTimestamp}];
