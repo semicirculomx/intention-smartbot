@@ -6,13 +6,14 @@ const flujoCancelar = require("./flujoCancelar");
  */
 const flowAgente = addKeyword(EVENTS.ACTION)
 .addAction(async (ctx, {provider}) => {
-    const nanoid = await import('nanoid')
-    const ID_GROUP = nanoid.nanoid(5)
+  
     const refProvider = await provider.getInstance()
     await refProvider.sendMessage('2295278419', {text: `Tienes un mensaje pendiente de este número ${ctx.from}`})
   })
   .addAnswer('Ya estas en lista para que te atienda un asesor enseguida! Gracias', null, async (ctx, ctxFn) => {
-    return ctxFn.gotoFlow(flujoCancelar)
+    await ctxFn.state.update({currentIntention: 'agente'})
+    return ctxFn.endFlow()
+
  })
 
 module.exports = flowAgente;
