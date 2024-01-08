@@ -8,10 +8,10 @@ const flowAgente = addKeyword(EVENTS.ACTION)
 .addAction(async (ctx, {provider}) => {
   
     const refProvider = await provider.getInstance()
-    await refProvider.sendMessage('2295278419', {text: `Tienes un mensaje pendiente de este número ${ctx.from}`})
+    await refProvider.sendMessage('5212295278419@s.whatsapp.net', {text: `Tienes un mensaje pendiente de este número ${ctx.from}`})
   })
   .addAnswer('Ya estas en lista para que te atienda un asesor enseguida! Gracias', null, async (ctx, ctxFn) => {
-    await ctxFn.state.update({currentIntention: 'agente'})
+    await ctxFn.state.update({currentIntention: 'agente', answers: []})
     return ctxFn.endFlow()
 
  })
