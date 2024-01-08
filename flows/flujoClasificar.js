@@ -8,7 +8,7 @@ const flujoClasificar = addKeyword(EVENTS.ACTION)
     try {
         let apiResponse;
         const number = ctx.key.remoteJid
-    const refProvider = await provider.getInstance()
+    const refProvider = await ctxFn.provider.getInstance()
         const currentState = await ctxFn.state.getMyState()
         // Paso 1: Obtener el array de mensajes del estado
         const mensajes = currentState?.answers || [];
