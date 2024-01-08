@@ -19,7 +19,7 @@ const flowPrincipal = addKeyword(EVENTS.WELCOME)
     const currentState = await state.getMyState();
     let ans = currentState?.answers ?? []
     let onWhatsapp = await refProvider.onWhatsApp(number)
-    console.log(onWhatsapp)
+    if(onWhatsapp) console.log(onWhatsapp)
     if(currentState && (currentState?.currentIntention === 'agente' && ctx.body !== 'Reiniciar')) {
       return endFlow();
     } else if(ctx.body === 'Reiniciar') {
