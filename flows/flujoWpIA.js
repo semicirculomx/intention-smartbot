@@ -1,6 +1,6 @@
 const { addKeyword, EVENTS } = require('@bot-whatsapp/bot')
-const wpApiCall = require('./aiengine')
-const flujoCancelar = require('./flujoCancelar')
+const wpApiCall = require('./aiengine');
+const flujoNull = require('./flujoNull');
 
 
 const  flujoWpIA = addKeyword(EVENTS.ACTION)
@@ -22,7 +22,7 @@ const  flujoWpIA = addKeyword(EVENTS.ACTION)
 
             return ctxFn.endFlow();
         } else {
-            return ctxFn.gotoFlow(flujoCancelar)
+            return ctxFn.gotoFlow(flujoNull)
         }
    
 })

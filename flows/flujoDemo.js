@@ -4,14 +4,14 @@ const flujoWpIA = require("./flujoWpIA");
 
 const flujoDemo = addKeyword(EVENTS.ACTION)
     .addAnswer('*DEMO MENU* Elige que demo probar:')
-    .addAnswer('🤖 demo asesor de ventas - Escríbe *demo1*', {capture: true}, async (ctx, ctxFn) => {
+    .addAnswer('🤖 Demo asesor de ventas - Escríbe *1*', {capture: true}, async (ctx, ctxFn) => {
       const intenciones = await ctxFn.state.getMyState()?.intenciones || [];
         const intencionRepetida = intenciones.find((intencion) => (intencion === 'demos'));
         if(!intencionRepetida) {
             intenciones.push('demos')
             await ctxFn.state.update({intenciones})
         } 
-        if(ctx.body.includes('demo1')) {
+        if(ctx.body.includes('demo1') || ctx.body.includes('Demo1') || ctx.body.includes('1') ) {
           ctxFn.gotoFlow(flujoWpIA)
           
         }

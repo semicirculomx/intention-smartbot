@@ -4,10 +4,15 @@ const delay = require("../utils");
 const flowStarter = addKeyword(EVENTS.ACTION)
 .addAction(async (ctx, {state, provider}) => {
         console.log('starter')
-        await state.update({ botOn: 'false' })
+        const intenciones = await state.getMyState()?.intenciones || [];
+        const intencionRepetida = intenciones.find((intencion) => (intencion === 'bienvenida'));
+        if(!intencionRepetida) {
+                intenciones.push('bienvenida')
+                await state.update({intenciones})
+        }
+        await state.update({answers: []})
 })
-.addAnswer(`¡Hola! 👋 Soy un Bot Asistente de Semicirculo, gracias por contactarnos!
-Puedes dejar tus dudas por mensaje. O si prefieres hablar con un asesor, escribe *agente*`)
+.addAnswer(`¡Hola! 👋 Soy un Bot Asistente de Semicirculo, gracias por contactarnos!`)
 .addAnswer([
   'Dime, en qué te puedo ayudar? 😃',
 ])

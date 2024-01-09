@@ -22,9 +22,9 @@ var calendarBtn = {
 };
 
 const confirmacion = addKeyword(EVENTS.ACTION)
-.addAnswer(`¿Son correctos? Para confirmar responde con *SI*, para modificarlos responde con *NO*
+.addAnswer(`Responde *Si* para confirmar, responde *No* para modificarlos
 
-o Escribe *Cancelar* si deseas *no continuar*`, {capture: true}, async (ctx, { state, flowDynamic, fallBack, gotoFlow, provider }) => {
+o escribe *Cancelar* si no quieres agendar`, {capture: true}, async (ctx, { state, flowDynamic, fallBack, gotoFlow, provider }) => {
     const respuesta = ctx.body.toLowerCase().trim();
     const telefono = ctx.key.remoteJid;
     const refProvider = await provider.getInstance();    
@@ -76,6 +76,7 @@ const flujoLlamada = addKeyword(EVENTS.ACTION)
         return ctxFn.gotoFlow(formularioNombre);
     } else {
         await ctxFn.flowDynamic([{body: `Parece que ya tenemos tus datos. Puedes agendar la llamada directamente usando el siguiente enlace: ${calendarLink}`}]);
+        await ctxFn.state.update({answers: []})
         return ctxFn.endFlow();
     }
 }, [formularioNombre, formularioEmail, confirmacion]);

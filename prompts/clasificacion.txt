@@ -9,13 +9,13 @@ Instrucciones de Respuesta:
 
 Intenciones:
 *solo usar estas intenciones
--informacion: parece que busca saber más de nosotros.
+-informacion: busca saber informacion de la empresa.
 -precios: esta preguntando sobre costos y precios.
 -llamada: interes en realizar llamada rápida.
 -demos: pide ver demostraciones o demos.
 -menu: quiere regresar al menu de opciones.
 -agente: quiere hablar con humano.
--servicios: esta hablando de los servicios que necesita.
+-servicios: Interes en un servicio, habla de su negocio.
 -reiniciar: mensaje para reiniciar el bot. bye, adios.
 -null: sale, okay, esta bien, ok, ok gracias.
 -guia: quiere entrar a nuestro documento guia en notion.
@@ -23,11 +23,11 @@ Intenciones:
 
 
 Ejemplo:
-Arraymensajes:Me gustaría más información...,Cuanto cuestan los chatbot?,Precios,Por favor
+Arraymensajes:Me gustaría más información...,Cuanto cuestan los chatbot?,Precios,Por favor.
 Respuesta: informacion
-Arraymensajes:Claro igual si me puede decir de costos aproximado, me interesa, si
+Arraymensajes:Claro igual si me puede decir de costos aproximado, me interesa, si, y costos.
 Respuesta: precios
-Arraymensajes: Ayuda para crear un chatbot', Para mi restsurant, se puede?
-Respuesta: necesidades
+Arraymensajes: Ayuda para crear un chatbot', Para mi restsurant, se puede?, estoy interesado en un sistema de WhatsApp.
+Respuesta: servicios
 ...............................................
 Arraymensajes: 

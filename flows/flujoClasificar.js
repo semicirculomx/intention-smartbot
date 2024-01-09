@@ -7,8 +7,6 @@ const flujoClasificar = addKeyword(EVENTS.ACTION)
 .addAction(async (ctx, ctxFn) => {
     try {
         let apiResponse;
-        const number = ctx.key.remoteJid
-    const refProvider = await ctxFn.provider.getInstance()
         const currentState = await ctxFn.state.getMyState()
         // Paso 1: Obtener el array de mensajes del estado
         const mensajes = currentState?.answers || [];
@@ -17,14 +15,15 @@ const flujoClasificar = addKeyword(EVENTS.ACTION)
             console.log("No hay mensajes para clasificar.");
             return;
         }
-
-        let onWhatsapp = await refProvider.onWhatsApp(number)
-        if(onWhatsapp) {
-                    // Paso 2: Recuperar el prompt principal desde un archivo
+        
+        if(!currentState.intenciones?.length) {
+            apiResponse = 'bienvenida'
+        } else {
+                // Paso 2: Recuperar el prompt principal desde un archivo
                 const fs = require('fs').promises;
                 let promptPrincipal;
                 try {
-                    promptPrincipal = await fs.readFile('/home/jorzarios/intention-smartbot/prompts/clasificacion.txt', 'utf8');
+                    promptPrincipal = await fs.readFile('././prompts/clasificacion.txt', 'utf8');
                 } catch (err) {
                     console.error("Error al leer el archivo de prompt:", err);
                     return;
@@ -49,13 +48,11 @@ const flujoClasificar = addKeyword(EVENTS.ACTION)
                     stop: ["Respuesta:"]
                 }, {
                     headers: {
-                        'Authorization': `Bearer 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` // Tu clave API
+                        'Authorization': `Bearer ` // Tu clave API
                     }
                 });
                 // Paso 5: Procesar y mostrar la respuesta
                 apiResponse = respuesta.data.choices[0].text.trim();
-        } else {
-            apiResponse = 'bienvenida'
         }
         
         await ctxFn.state.update({currentIntention: apiResponse})
